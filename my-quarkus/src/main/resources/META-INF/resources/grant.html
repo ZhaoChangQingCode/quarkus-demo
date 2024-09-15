@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Some</title>
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    </head>
+    <body>
+        <h1>操作</h1>
+        <button onclick="setCookie('user,admin')">授权</button>
+        <button onclick="removeCookie('authToken')">取消授权</button><br>
+        <a href="/restricted2/index.html">访问受限制的网站</a><br>
+
+        <script>
+          async function setCookie(roles) {
+            let errorOccurred = false;
+            try {
+              await fetch(`/echo/cookies?roles=${roles}`)
+            } catch (e) {
+              errorOccurred = true;
+              alert('失败！服务器不在线！')
+            } finally {
+              if (!errorOccurred) alert('成功');
+            }
+          }
+          async function removeCookie(name) {
+            let errorOccurred = false;
+            try {
+              await fetch(`/echo/noCookies?name=${name}`)
+            } catch (e) {
+              errorOccurred = true;
+              alert('失败！服务器不在线！')
+            } finally {
+              if (!errorOccurred) alert('成功');
+            }
+          }
+            function getCookie(name) {
+                // 将所有的cookie分割成一个数组
+                var cookieArray = document.cookie.split(';');
+                // 遍历数组，找到匹配的cookie名称
+                for(var i = 0; i < cookieArray.length; i++) {
+                    var cookie = cookieArray[i];
+                    // 去除前后的空格
+                    while (cookie.charAt(0) === ' ') {
+                        cookie = cookie.substring(1);
+                    }
+                    // 检查当前cookie的名称是否是我们要找的
+                    if (cookie.indexOf(name) === 0) {
+                        // 返回cookie的值
+                        return cookie.substring(name.length, cookie.length);
+                    }
+                }
+                return ""; // 如果没有找到，返回空字符串
+            }
+
+        </script>
+    </body>
+</html>

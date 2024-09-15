@@ -1,0 +1,11 @@
+[package]
+name = "readstring"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+jni = "0.21.1"
+memmap = "0.7.0"
+
+[lib]
+crate-type = ['cdylib']
